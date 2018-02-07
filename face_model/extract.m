@@ -6,15 +6,21 @@ caffe.reset_all();
 caffe.set_device(0);
 caffe.set_mode_gpu();
 model = 'd:/zhuch/windows_centerloss_caffe/face_example/face_deploy.prototxt';
-weights = 'd:/zhuch/windows_centerloss_caffe/face_example/face_snapshot_iter_190000.caffemodel';
+weights = 'd:/zhuch/windows_centerloss_caffe/face_example/face_model.caffemodel';
 net = caffe.Net(model, weights, 'test');
 
 %[paths,classes]=textread('d:/dl/lfw_all.txt','%s %n%*[^n]');
-[paths,classes]=textread('d:/dl/lfw_all.txt','%s%n',13220);
+[paths,classes]=textread('d:/dl/lfw_all.txt','%s%n',13233);
 for i = 1:size(paths)
     fprintf(char(paths(i)))
     fprintf('\n')
-    cropImg = imread(char(paths(i)));
+    try
+        cropImg = imread(char(paths(i)));
+    catch
+        features(i,:) = zeros(1,1024);
+        continue
+    end
+    
     % transform image, obtaining the original face and the horizontally flipped one
     if size(cropImg, 3) < 3
         cropImg(:,:,2) = cropImg(:,:,1);
@@ -35,6 +41,6 @@ for i = 1:size(paths)
     features(i,:) = [res{1}; res_{1}];
 end
 
-save('D:\zhuch\windows_centerloss_caffe\face_example\LFW_Feature.mat','features','paths','classes');
+save('D:\zhuch\windows_centerloss_caffe\face_example\LFW_Feature_all.mat','features','paths','classes');
 
 caffe.reset_all();
