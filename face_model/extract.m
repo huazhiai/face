@@ -6,9 +6,10 @@ caffe.reset_all();
 caffe.set_device(0);
 caffe.set_mode_gpu();
 model = 'd:/zhuch/windows_centerloss_caffe/face_example/face_deploy.prototxt';
-weights = 'd:/zhuch/windows_centerloss_caffe/face_example/face_model.caffemodel';
-net = caffe.Net(model, weights, 'test');
+weights = 'd:/zhuch/windows_centerloss_caffe/face_example/face_snapshot_iter_556000.caffemodel';
 
+net = caffe.Net(model, weights, 'test');
+%net.save('d:/zhuch/windows_centerloss_caffe/face_example/face.caffemodel');
 %[paths,classes]=textread('d:/dl/lfw_all.txt','%s %n%*[^n]');
 [paths,classes]=textread('d:/dl/lfw_all.txt','%s%n',13233);
 for i = 1:size(paths)
@@ -41,6 +42,6 @@ for i = 1:size(paths)
     features(i,:) = [res{1}; res_{1}];
 end
 
-save('D:\zhuch\windows_centerloss_caffe\face_example\LFW_Feature_all.mat','features','paths','classes');
+save('D:\zhuch\windows_centerloss_caffe\face_example\LFW_Feature_556000.mat','features','paths','classes');
 
 caffe.reset_all();

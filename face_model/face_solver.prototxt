@@ -9,7 +9,8 @@ gamma: 0.1
 stepvalue: 16000
 stepvalue: 24000
 stepvalue: 28000
-max_iter: 2080000
+stepvalue: 32000
+max_iter:  36000
 
 display: 100
 momentum: 0.9

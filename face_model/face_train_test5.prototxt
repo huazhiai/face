@@ -15,7 +15,7 @@ layer {
     mirror: true
   }
   data_param {
-    source: "d:/dl/caisa_train_lmdb"
+    source: "d:/dl/caisa_train_full_lmdb"
     batch_size: 128
     backend: LMDB
   }
